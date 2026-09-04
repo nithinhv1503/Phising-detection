@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  phishing-sentinel:
+    build: .
+    container_name: phishing_sentinel_app
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - PORT=8000
+    volumes:
+      - ./backend/models:/app/backend/models
+      - ./ml_pipeline/data:/app/ml_pipeline/data

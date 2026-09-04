@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Phishing Sentinel</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    
+    <!-- Header -->
+    <div class="popup-header">
+      <div class="header-brand">
+        <span class="brand-icon">🛡️</span>
+        <span class="brand-name">AI Phishing Sentinel</span>
+      </div>
+      <div class="status-indicator" id="statusPill">Evaluating...</div>
+    </div>
+
+    <!-- Active Target Info -->
+    <div class="site-card">
+      <div class="site-label">CURRENT TAB</div>
+      <div class="site-host" id="siteHost">Loading...</div>
+    </div>
+
+    <!-- Security Score Gauge -->
+    <div class="gauge-section">
+      <div class="gauge-circle" id="gaugeCircle">
+        <span class="gauge-val" id="gaugeVal">0%</span>
+        <span class="gauge-label">Risk Level</span>
+      </div>
+      <div class="verdict-title" id="verdictTitle">Checking security...</div>
+    </div>
+
+    <!-- Key Risk Indicators -->
+    <div class="indicators-section" id="indicatorsSection">
+      <div class="section-title">Risk Breakdown:</div>
+      <div class="indicators-list" id="indicatorsList">
+        <div class="clean-msg">Scanning URL structure...</div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-whitelist" id="btnWhitelist">
+        <span>⭐</span> Whitelist Site
+      </button>
+      <button class="btn btn-report" id="btnReportPhish">
+        <span>🚨</span> Report Phishing
+      </button>
+    </div>
+
+    <div class="popup-footer">
+      Powered by AI-Powered Hybrid Detection Model
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

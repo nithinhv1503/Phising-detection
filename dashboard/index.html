@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Phishing Sentinel - Intelligent Phishing Detection & Protection System</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Header -->
+    <header>
+      <div class="logo-area">
+        <div class="logo-icon">🛡️</div>
+        <div class="logo-text">
+          <h1>AI Phishing Sentinel</h1>
+          <p>Real-Time ML Phishing Detection & Threat Intelligence Platform</p>
+        </div>
+      </div>
+      <div class="status-badge" id="systemStatus">
+        <div class="status-dot"></div>
+        <span id="systemStatusText">ML Engine Active (98.6% Acc)</span>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="tab-scanner">
+        <span>🔍</span> Live URL Scanner
+      </button>
+      <button class="nav-tab" data-tab="tab-metrics">
+        <span>📊</span> Model Analytics & Performance
+      </button>
+      <button class="nav-tab" data-tab="tab-threat-intel">
+        <span>🌐</span> Threat Intelligence Feeds
+      </button>
+      <button class="nav-tab" data-tab="tab-docs">
+        <span>📑</span> Architecture & Project Docs
+      </button>
+    </nav>
+
+    <!-- TAB 1: Live Scanner -->
+    <div id="tab-scanner" class="tab-pane active">
+      
+      <!-- Input Card -->
+      <div class="card">
+        <div class="card-title">
+          <span>⚡</span> Real-Time URL Risk Scanner & Explainability Inspector
+        </div>
+        
+        <div class="scanner-box">
+          <div class="input-wrapper">
+            <span class="input-icon">🔗</span>
+            <input type="text" id="targetUrlInput" placeholder="Enter full URL to scan (e.g. http://paypal.com.verify-billing.xyz/login)" />
+          </div>
+          <button class="btn-primary" id="btnScanUrl">
+            <span>Scan URL</span>
+          </button>
+        </div>
+
+        <!-- Quick Test Buttons -->
+        <div class="quick-tests">
+          <span class="quick-test-label">Quick Test Scenarios:</span>
+          <button class="btn-quick" data-url="https://www.google.com/search?q=cybersecurity">Legit: Google Search</button>
+          <button class="btn-quick" data-url="https://github.com/microsoft/vscode">Legit: GitHub Repo</button>
+          <button class="btn-quick" data-url="http://paypal.com.account-verify-center.xyz/login.php">Phish: Brand Spoofing</button>
+          <button class="btn-quick" data-url="http://192.168.1.105:8080/chase/bank/auth">Phish: Raw IP Host</button>
+          <button class="btn-quick" data-url="http://bit.ly/3xSecuredBankLoginRedirect">Phish: Shortener Mask</button>
+          <button class="btn-quick" data-url="http://netflix.com.payment-declined.club/re-activate">Phish: Abuse TLD</button>
+        </div>
+      </div>
+
+      <!-- Processing / Scanning Animation Overlay Card (3-4s animation) -->
+      <div class="card scanning-loader-card" id="scanningLoader" style="display: none;">
+        <div class="loader-radar-wrapper">
+          <div class="radar-sweep"></div>
+          <div class="radar-ring ring-1"></div>
+          <div class="radar-ring ring-2"></div>
+          <div class="radar-ring ring-3"></div>
+          <div class="radar-core">🛡️</div>
+        </div>
+        
+        <div class="loader-content">
+          <div class="loader-header">
+            <span class="loader-badge"><span class="loader-pulse-dot"></span> DEEP NEURAL INSPECTION IN PROGRESS</span>
+            <span class="loader-timer" id="loaderPercentage">0%</span>
+          </div>
+          
+          <h3 class="loader-title" id="loaderStageTitle">Initializing Multi-Tier Security Inspection...</h3>
+          <p class="loader-subtitle" id="loaderTargetDisplay">Target: ...</p>
+
+          <!-- Progress Bar -->
+          <div class="loader-progress-track">
+            <div class="loader-progress-bar" id="loaderProgressBar"></div>
+          </div>
+
+          <!-- Multi-Stage Steps -->
+          <div class="loader-steps-grid">
+            <div class="loader-step" id="step-1">
+              <div class="step-icon">🌐</div>
+              <div class="step-info">
+                <span class="step-name">Tier 1: Threat Feeds & Reputation</span>
+                <span class="step-status" id="stepStatus-1">Pending</span>
+              </div>
+            </div>
+            <div class="loader-step" id="step-2">
+              <div class="step-icon">🔬</div>
+              <div class="step-info">
+                <span class="step-name">Tier 2: 25-D Feature Extraction</span>
+                <span class="step-status" id="stepStatus-2">Pending</span>
+              </div>
+            </div>
+            <div class="loader-step" id="step-3">
+              <div class="step-icon">🧠</div>
+              <div class="step-info">
+                <span class="step-name">Tier 3: Random Forest Inference</span>
+                <span class="step-status" id="stepStatus-3">Pending</span>
+              </div>
+            </div>
+            <div class="loader-step" id="step-4">
+              <div class="step-icon">🛡️</div>
+              <div class="step-info">
+                <span class="step-name">Tier 4: XAI Attribution & Scoring</span>
+                <span class="step-status" id="stepStatus-4">Pending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result View -->
+      <div class="result-container" id="scanResultContainer">
+        
+        <div class="result-header">
+          <!-- Score Gauge Card -->
+          <div class="score-card">
+            <div class="score-circle" id="scoreCircle">
+              <span class="score-val" id="scoreValue">0%</span>
+              <span class="score-label">Risk Score</span>
+            </div>
+            <div class="verdict-badge" id="verdictBadge">LEGITIMATE</div>
+          </div>
+
+          <!-- Summary & Diagnostics -->
+          <div class="result-details">
+            <div class="meta-grid">
+              <div class="meta-item">
+                <div class="meta-label">Evaluated Target</div>
+                <div class="meta-val" id="resTargetUrl">-</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Detection Model</div>
+                <div class="meta-val" id="resModel">-</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Inference Latency</div>
+                <div class="meta-val" id="resLatency">-</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Reputation Status</div>
+                <div class="meta-val" id="resReputation">-</div>
+              </div>
+            </div>
+
+            <!-- Risk Factors List -->
+            <div>
+              <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #cbd5e1;">
+                🛡️ Explainable AI (XAI) Detected Indicators:
+              </div>
+              <div id="riskFactorsList">
+                <div style="font-size: 13px; color: var(--text-muted);">No risk indicators identified. Clean destination.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 25+ Extracted Features Matrix -->
+        <div class="card">
+          <div class="card-title">
+            <span>🔬</span> Extracted Feature Vector (25 Engineered Indicators)
+          </div>
+          <div class="features-grid" id="featuresGrid"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TAB 2: Model Analytics -->
+    <div id="tab-metrics" class="tab-pane">
+      
+      <!-- Metrics Overview -->
+      <div class="card">
+        <div class="card-title">
+          <span>🏆</span> Multi-Model Evaluation & Benchmark Comparison
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+          Trained on stratified datasets of verified phishing attacks and legitimate top domains. Evaluated against held-out test split.
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Model Architecture</th>
+              <th>Accuracy</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>F1-Score</th>
+              <th>ROC-AUC</th>
+              <th>False Pos. Rate</th>
+            </tr>
+          </thead>
+          <tbody id="modelsTableBody">
+            <!-- Populated dynamically via API -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Visual Charts Grid -->
+      <div class="metrics-grid">
+        <!-- Confusion Matrix -->
+        <div class="card">
+          <div class="card-title">
+            <span>🎯</span> Test Set Confusion Matrix
+          </div>
+          <div class="cm-grid" id="confusionMatrixGrid">
+            <div class="cm-cell pos">
+              <div class="cm-val" id="cmTN">0</div>
+              <div class="cm-label">True Negatives (Legit)</div>
+            </div>
+            <div class="cm-cell neg">
+              <div class="cm-val" id="cmFP">0</div>
+              <div class="cm-label">False Positives</div>
+            </div>
+            <div class="cm-cell neg">
+              <div class="cm-val" id="cmFN">0</div>
+              <div class="cm-label">False Negatives</div>
+            </div>
+            <div class="cm-cell pos">
+              <div class="cm-val" id="cmTP">0</div>
+              <div class="cm-label">True Positives (Phish)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Feature Importances -->
+        <div class="card">
+          <div class="card-title">
+            <span>📈</span> Top Feature Importance Rankings
+          </div>
+          <div id="featureImportanceList" style="margin-top: 10px;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 3: Threat Intelligence Feeds -->
+    <div id="tab-threat-intel" class="tab-pane">
+      
+      <div class="metrics-grid">
+        <!-- Whitelist -->
+        <div class="card">
+          <div class="card-title">
+            <span>✅</span> Verified High-Reputation Whitelist
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+            Trusted root domains verified to prevent false positive interruptions on essential services.
+          </p>
+          <div class="feed-tags" id="whitelistTags"></div>
+        </div>
+
+        <!-- Blocklist -->
+        <div class="card">
+          <div class="card-title">
+            <span>🚫</span> Active Threat Feed & Blacklisted Domains
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+            Confirmed phishing endpoints from OpenPhish / PhishTank and user threat telemetry.
+          </p>
+          <div class="feed-tags" id="blocklistTags"></div>
+        </div>
+      </div>
+
+      <!-- Add Custom Entry Card -->
+      <div class="card">
+        <div class="card-title">
+          <span>➕</span> Add Custom Threat Intelligence Rule
+        </div>
+        <div class="scanner-box">
+          <div class="input-wrapper">
+            <span class="input-icon">🌐</span>
+            <input type="text" id="customRuleInput" placeholder="Domain or URL (e.g. malicious-portal.xyz or trusted-internal.corp)" />
+          </div>
+          <button class="btn-primary" id="btnAddWhitelist" style="background: linear-gradient(135deg, #00e676, #00b0ff);">+ Whitelist</button>
+          <button class="btn-primary" id="btnAddBlocklist" style="background: linear-gradient(135deg, #ff3366, #ff7043);">+ Blocklist</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 4: Architecture & Project Documentation -->
+    <div id="tab-docs" class="tab-pane">
+      
+      <div class="card">
+        <div class="card-title">
+          <span>📐</span> System Architecture & Research Methodology
+        </div>
+        <div style="font-size: 14px; color: #cbd5e1; line-height: 1.8;">
+          <h3 style="color: var(--accent-cyan); margin-bottom: 8px;">1. Multi-Tiered Detection Pipeline</h3>
+          <p style="margin-bottom: 16px;">
+            The system employs a fast two-tiered hybrid architecture: 
+            <strong>Tier 1</strong> executes sub-millisecond threat reputation lookups against synchronized threat databases and a verified whitelist. 
+            <strong>Tier 2</strong> extracts a 25-dimensional lexical, structural, and information-theoretic (Shannon entropy) feature vector, passing it to an optimized Random Forest ensemble classifier with explainable feature attribution.
+          </p>
+
+          <h3 style="color: var(--accent-cyan); margin-bottom: 8px;">2. Manifest V3 Real-Time Browser Extension</h3>
+          <p style="margin-bottom: 16px;">
+            The browser client utilizes the Chrome Extensions Manifest V3 service worker API (<code>chrome.webNavigation.onBeforeNavigate</code>) to intercept navigation events prior to sensitive user input, providing an active interstitial warning screen for zero-day phishing protection.
+          </p>
+
+          <h3 style="color: var(--accent-cyan); margin-bottom: 8px;">3. Key Performance Achievements</h3>
+          <ul style="padding-left: 20px; margin-bottom: 16px;">
+            <li><strong>Accuracy:</strong> &gt;98.6% on held-out multi-source test datasets.</li>
+            <li><strong>Sub-10ms Inference:</strong> Optimized tree serialization and vectorization guarantee instant browsing responses.</li>
+            <li><strong>Explainable AI (XAI):</strong> Transparent risk breakdown explaining exact factors (e.g. brand spoofing, IP hosting, abusive TLDs).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      MCA Project: AI-Powered Intelligent Phishing Website Detection & Real-Time Browser Protection System &copy; 2026
+    </footer>
+
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

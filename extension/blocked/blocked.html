@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Alert: Dangerous Site Blocked - AI Phishing Sentinel</title>
+  <link rel="stylesheet" href="blocked.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="warning-container">
+    
+    <div class="alert-icon-wrapper">
+      <div class="alert-icon">⚠️</div>
+    </div>
+
+    <div class="security-badge">AI Phishing Sentinel Protection</div>
+
+    <h1 class="warning-title">Deceptive Site Ahead!</h1>
+    
+    <p class="warning-description">
+      AI Phishing Sentinel blocked access to this webpage because it exhibited strong indicators of credential harvesting and identity theft. Attackers may attempt to trick you into disclosing passwords, credit card numbers, or personal accounts.
+    </p>
+
+    <!-- Threat Diagnostics Card -->
+    <div class="diagnostics-card">
+      <div class="diag-row">
+        <span class="diag-label">Target URL:</span>
+        <span class="diag-val" id="blockedUrlDisplay">Loading...</span>
+      </div>
+      <div class="diag-row">
+        <span class="diag-label">AI Risk Score:</span>
+        <span class="diag-val high-risk" id="riskScoreDisplay">98.5%</span>
+      </div>
+      <div class="diag-row">
+        <span class="diag-label">Primary Flag:</span>
+        <span class="diag-val" id="reasonDisplay">High confidence phishing patterns detected</span>
+      </div>
+    </div>
+
+    <!-- Action Controls -->
+    <div class="cta-group">
+      <button class="btn btn-primary" id="btnBackToSafety">
+        🛡️ Back to Safety (Recommended)
+      </button>
+      <button class="btn btn-secondary" id="btnProceedAnyway">
+        Proceed to Unsafe Site (Not Recommended)
+      </button>
+    </div>
+
+    <div class="advanced-section">
+      <button class="btn-text" id="btnToggleDetails">Details & Diagnostics ▼</button>
+      <div class="details-content" id="detailsContent" style="display: none;">
+        <p>This automated security action was enforced locally by the Machine Learning ensemble model running on your device, preventing zero-day phishing risks before any keystrokes or cookies could be exfiltrated.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="blocked.js"></script>
+</body>
+</html>
